@@ -1,3 +1,4 @@
+```
 custom_mark
 @startuml
 class Project1 {
@@ -32,3 +33,5 @@ class ProjectDocument {
 }
 @enduml
 custom_mark
+
+```
