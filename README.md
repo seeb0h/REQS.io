@@ -6,10 +6,6 @@ class Project {
   docName
 }
 
-Project "1..N" - "1..N" ReferenceDocument 
-ReferenceDocument "1" - "1..N" ProjectDocument
-Document "1" - "0..N" REQ
-
 Document <|-- ReferenceDocument 
 Document <|-- ProjectDocument  
 
