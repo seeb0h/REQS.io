@@ -6,8 +6,8 @@ class Project {
   docName
 }
 
-Project "1..*" - "1..*" ReferenceDocument 
-ReferenceDocument "1" - "1..*" ProjectDocument
+Project "1..N" - "1..N" ReferenceDocument 
+ReferenceDocument "1" - "1..N" ProjectDocument
 Document "1" - "0..*" REQ
 
 Document <|-- ReferenceDocument 
