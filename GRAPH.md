@@ -1,7 +1,6 @@
-<!---
 custom_mark
 @startuml
-class Project {
+class Project1 {
   name
   docName
 }
@@ -9,7 +8,7 @@ class Project {
 Document <|-- ReferenceDocument 
 Document <|-- ProjectDocument  
 
-Project "1..N" - "1..N" ReferenceDocument 
+Project1 "1..N" - "1..N" ReferenceDocument 
 ReferenceDocument "1" - "1..N" ProjectDocument
 Document "1" - "0..N" REQ
 
@@ -33,4 +32,3 @@ class ProjectDocument {
 }
 @enduml
 custom_mark
--->
