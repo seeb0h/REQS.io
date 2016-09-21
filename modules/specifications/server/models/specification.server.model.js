@@ -16,6 +16,24 @@ var SpecificationSchema = new Schema({
     required: 'Please fill Specification name',
     trim: true
   },
+  docName: {
+    type: String,
+    default: '',
+    required: 'Please fill Specification docName',
+    trim: true
+  },
+  type: {
+    type: String,
+    default: '',
+    required: 'Please fill Specification type',
+    trim: true
+  },
+  version: {
+    type: String,
+    default: '',
+    required: 'Please fill Specification version',
+    trim: true
+  },
   created: {
     type: Date,
     default: Date.now

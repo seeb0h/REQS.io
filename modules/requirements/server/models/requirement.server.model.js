@@ -16,6 +16,12 @@ var RequirementSchema = new Schema({
     required: 'Please fill Requirement name',
     trim: true
   },
+  content: {
+    type: String,
+    default: '',
+    required: 'Please fill Requirement content',
+    trim: true
+  },
   created: {
     type: Date,
     default: Date.now
