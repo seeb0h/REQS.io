@@ -1,5 +1,5 @@
 ```
-graph_classes
+graph_classes_1
 @startuml
 skinparam shadowing false
 
@@ -36,7 +36,7 @@ note top of Specification
   version : like "1.1.2" "3.2.1_RC1"
 end note
 
-class REQ {
+class Requirement {
   +UID : string 
   +reqID : integer
   +parentUID : integer list
@@ -46,7 +46,7 @@ class REQ {
   +content : string
 }
 
-note top of REQ 
+note top of Requirement 
   reqID : Like "201". Added to Specification.reqRoot 
             to create the req ID : "TS_024_201"
   parentUID : every REQ, in every Specification which 
@@ -80,7 +80,7 @@ graph_classes
 
 
 ```
-graph_relationship
+graph_relationship_1
 @startuml
 skinparam shadowing false
 
@@ -94,10 +94,10 @@ class User {
 class Project {
 }
 
-class Document {
+class Specification {
 }
 
-class REQ {
+class Requirement {
 }
 
 enum typeDoc{
@@ -105,22 +105,22 @@ enum typeDoc{
   PROJECT
 }
 
-class ReferenceDocument {
+class ReferenceSpecification {
   #type : REFERENCE
 }
 
-class ProjectDocument{
+class ProjectSpecification{
   #type : PROJECT
 }
 
-Project "1" -- "1..N" ReferenceDocument 
-ReferenceDocument "1..N" -- "1..N" ProjectDocument
-Document "1" -- "0..N" REQ
+Project "1" -- "1..N" ReferenceSpecification 
+ReferenceSpecification "1..N" -- "1..N" ProjectSpecification
+Specification "1" -- "0..N" Requirement
 User "1" -- "0..N" Project
 Group "1..N" -- "0..N" User
 
-Document <|-- ReferenceDocument 
-Document <|-- ProjectDocument
+Specification <|-- ReferenceSpecification 
+Specification <|-- ProjectSpecification
 @enduml
 graph_relationship
 ```
