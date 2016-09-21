@@ -8,10 +8,10 @@
 
 ## Data model
 ### Classes
-![Classes](http://g.gravizo.com/source/graph_classes_1?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
+![Classes](http://g.gravizo.com/source/graph_classes_2?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
 
 ### Relationship
-![Relationship](http://g.gravizo.com/source/graph_relationship_1?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
+![Relationship](http://g.gravizo.com/source/graph_relationship_2?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
 
 ### Analytics
 
