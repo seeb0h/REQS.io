@@ -20,15 +20,15 @@ class Project {
   +name : string
 }
 
-class Document {
+class Specification {
   +UID : string
   +name : string
   +docName : string
   +reqRoot : string
-  +type : typeDoc
+  +type : eTypeSpec
   +version : string
 }
-note top of Document
+note top of Specification 
   name: like "Technical Specifications 
             of XXX Subsystem"
   docName : like "TS_024_"
@@ -42,13 +42,15 @@ class REQ {
   +reqID : integer
   +parentUID : integer list
   +version : string
+  +reqStatus : eReqStatus
+  +testStatus : eTestStatus
   +content : string
 }
 
 note top of REQ 
-  reqID : Like "201". Added to Document.reqRoot 
+  reqID : Like "201". Added to Specification.reqRoot 
             to create the req ID : "TS_024_201"
-  parentUID : every REQ, in every Document which 
+  parentUID : every REQ, in every Specification which 
             are parent of this REQ
   version : ???
   content : markdown text or html. depends of the 
@@ -56,10 +58,23 @@ note top of REQ
 end note
 
 
-enum typeDoc{
+enum eTypeSpec{
   REFERENCE
   PROJECT
 }
+
+enum eReqStatus{
+  DRAFT
+  READY
+}
+
+enum eTestStatus{
+  NO_TEST
+  NOT_TESTED
+  TEST_FAILED
+  TEST_SUCCESSED
+}
+
 @enduml
 graph_classes
 ```
