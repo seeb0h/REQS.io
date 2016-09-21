@@ -1,4 +1,4 @@
-# Requirements managements 4 the lulz
+# Requirements manager 4 the lulz
 ## Techs stuffs
 * MEAN.js stack
 * markdown editor directive
