@@ -8,7 +8,7 @@
 
 ## Data model
 ### Classes
-![Classes](http://g.gravizo.com/source/graph_classes?https%3A%2F%2Fraw.githubu_sercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
+![Classes](http://g.gravizo.com/source/graph_classes?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
 
 ### Relationship
 ![Relationship](http://g.gravizo.com/source/graph_relationship?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
