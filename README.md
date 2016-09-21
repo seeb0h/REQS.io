@@ -14,4 +14,20 @@
 ![Relationship](http://g.gravizo.com/source/graph_relationship?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
 
 ### Analytics
-![Analytics](http://g.gravizo.com/source/graph_analytics?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
+
+* Matrice de tracabilité
+  * Reqs non couvertes par documents fils
+    * liste
+    * ratio/nb reqs
+  * Reqs couvertes par documents fils
+    * liste
+    * ratio/nb reqs
+  * Summary
+    * graph de repartition
+* Matrice de tracabilité inverse
+  * Req dans documents fils couvrant les reqs du doc courant
+    * liste
+
+### Vues
+
+
