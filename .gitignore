@@ -41,3 +41,5 @@ data/**
 
 bower_components
 node_modules
+
+config/env/local.js
