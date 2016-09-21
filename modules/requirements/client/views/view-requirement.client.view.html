@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.requirement.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.requirement.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="requirements.edit({ requirementId: vm.requirement._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.requirement.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.requirement.user"
+            ng-bind="vm.requirement.user.displayName"></span>
+      <span ng-if="!vm.requirement.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.requirement.content"></p>
+</section>

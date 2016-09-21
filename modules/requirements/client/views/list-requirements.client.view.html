@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Requirements</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="requirement in vm.requirements"
+       ui-sref="requirements.view({ requirementId: requirement._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="requirement.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="requirement.user" ng-bind="requirement.user.displayName"></span>
+        <span ng-if="!requirement.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="requirement.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.requirements.$resolved && !vm.requirements.length">
+    No Requirements yet, why don't you <a ui-sref="requirements.create">create one</a>?
+  </div>
+</section>
