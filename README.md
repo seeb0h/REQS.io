@@ -7,5 +7,8 @@
   *  https://github.com/JimLiu/angular-markdown-editor
 
 ## Data model
-In one graph (when gravizo works...)
-![Alt text](http://g.gravizo.com/source/custom_mark?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
+### Classes
+![Classes](http://g.gravizo.com/source/graph_classes?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
+
+### Relationship
+![Relationship](http://g.gravizo.com/source/graph_relationship?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
