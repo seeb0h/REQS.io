@@ -12,3 +12,6 @@
 
 ### Relationship
 ![Relationship](http://g.gravizo.com/source/graph_relationship?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
+
+### Analytics
+![Analytics](http://g.gravizo.com/source/graph_analytics?https%3A%2F%2Fraw.githubusercontent.com%2Fseeb0h%2FREQS.io%2Fmaster%2FGRAPH.md)
