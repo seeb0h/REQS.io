@@ -1,5 +1,5 @@
 ```
-graph_classes_1
+graph_classes_2
 @startuml
 skinparam shadowing false
 
@@ -75,12 +75,12 @@ enum eTestStatus{
 }
 
 @enduml
-graph_classes
+graph_classes_2
 ```
 
 
 ```
-graph_relationship_1
+graph_relationship_2
 @startuml
 skinparam shadowing false
 
@@ -122,5 +122,5 @@ Group "1..N" -- "0..N" User
 Specification <|-- ReferenceSpecification 
 Specification <|-- ProjectSpecification
 @enduml
-graph_relationship
+graph_relationship_2
 ```
