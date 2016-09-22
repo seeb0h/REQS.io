@@ -13,8 +13,10 @@
         <span ng-if="project.user" ng-bind="project.user.displayName"></span>
         <span ng-if="!project.user">Deleted User</span>
       </small>
+      <i ng-if="vm.project.active" class="glyphicon glyphicon-check"></i>
+      <i ng-if="!vm.project.active" class="glyphicon glyphicon-unchecked"></i>
       <h4 class="list-group-item-heading" ng-bind="project.name"></h4>
-    </a>
+      </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.projects.$resolved && !vm.projects.length">
     No Projects yet, why don't you <a ui-sref="projects.create">create one</a>?
