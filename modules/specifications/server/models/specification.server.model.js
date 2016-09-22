@@ -38,6 +38,10 @@ var SpecificationSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  project: {
+    type: Schema.ObjectId,
+    ref: 'Project'
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'

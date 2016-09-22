@@ -26,6 +26,14 @@ var RequirementSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  parentRequirement: {
+    type: Schema.ObjectId,
+    ref: 'Requirement'
+  },
+  specification: {
+    type: Schema.ObjectId,
+    ref: 'Specification'
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'
