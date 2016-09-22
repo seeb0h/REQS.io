@@ -115,3 +115,11 @@ exports.specificationByID = function(req, res, next, id) {
     next();
   });
 };
+
+
+/**
+ * Import requirements in the specification
+ */
+exports.importRequirements = function (req, res) {
+  res.jsonp({});
+};
