@@ -6,11 +6,15 @@
 var projectsPolicy = require('../policies/projects.server.policy'),
   projects = require('../controllers/projects.server.controller');
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Projects Routes
   app.route('/api/projects').all(projectsPolicy.isAllowed)
     .get(projects.list)
     .post(projects.create);
+
+  app.route('/api/projects/active').all(projectsPolicy.isAllowed)
+    .get(projects.getActive)
+    .post(projects.setActive);
 
   app.route('/api/projects/:projectId').all(projectsPolicy.isAllowed)
     .get(projects.read)

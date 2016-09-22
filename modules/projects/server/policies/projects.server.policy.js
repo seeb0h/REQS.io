@@ -29,6 +29,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/projects/:projectId',
       permissions: ['get']
+    },{
+      resources: '/api/projects/active',
+      permissions: ['get','post']
     }]
   }, {
     roles: ['guest'],

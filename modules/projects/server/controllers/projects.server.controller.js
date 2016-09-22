@@ -93,6 +93,49 @@ exports.list = function(req, res) {
 };
 
 /**
+ * Get Active project
+ */
+exports.getActive = function(req, res) {
+  var projectID = req.user;
+ 
+  Project.find({ '__id': projectID }).sort('-created').populate('user', 'displayName').exec(function (err, projects) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(projects);
+    }
+  });
+};
+
+/**
+ *set active project
+ *  */
+exports.setActive = function (req, res) {
+  var project = req.body;
+  var user = req.user;
+
+  if (user) {
+    user.activeProject = project;
+    user.save(function (err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.json(user);
+      }
+    });
+  } else {
+    res.status(400).send({
+      message: 'User is not signed in'
+    });
+  }
+};
+
+
+/**
  * Project middleware
  */
 exports.projectByID = function(req, res, next, id) {
