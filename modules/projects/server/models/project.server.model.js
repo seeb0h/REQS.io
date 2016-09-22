@@ -20,6 +20,10 @@ var ProjectSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  active: {
+    type: Boolean,
+    default: false
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'
