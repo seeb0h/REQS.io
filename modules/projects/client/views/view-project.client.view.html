@@ -3,16 +3,22 @@
     <h1 ng-bind="vm.project.name"></h1>
   </div>
   <div class="pull-right"
-       ng-show="vm.project.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="projects.edit({ projectId: vm.project._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
+      ng-show="vm.project.isCurrentUserOwner">
+      <a class="btn btn-primary"
+        ui-sref="projects.edit({ projectId: vm.project._id })">
+        <i class="glyphicon glyphicon-edit"></i>
+      </a>
+      <a class="btn btn-primary" ng-click="vm.remove()">
+        <i class="glyphicon glyphicon-trash"></i>
+      </a>
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary" ng-class="{'active':vm.project.active}" ng-click="vm.setActive(!vm.project.active)">
+          {{vm.project.active ? "Active " : "Inactive "}}
+          <span ng-show="vm.project.active" class="glyphicon glyphicon-check"></span>
+          <span ng-show="!vm.project.active" class="glyphicon glyphicon-unchecked"></span>
+      </div>
+    </div>
+    <small>
     <em class="text-muted">
       Posted on
       <span ng-bind="vm.project.created | date:'mediumDate'"></span>
@@ -23,4 +29,22 @@
     </em>
   </small>
   <p class="lead" ng-bind="vm.project.content"></p>
+  <div class="page-header">
+    <h1>Specifications</h1>
+  </div>
+    <div class="list-group">
+      <a ng-repeat="specification in vm.projects.specifications"
+        ui-sref="specifications.view({ specificationId: specification._id })"
+        class="list-group-item">
+        <small class="list-group-item-text">
+          Posted on
+          <span ng-bind="specification.created | date:'mediumDate'"></span>
+          by
+          <span ng-if="specification.user" ng-bind="specification.user.displayName"></span>
+          <span ng-if="!specification.user">Deleted User</span>
+        </small>
+        <h4 class="list-group-item-heading" ng-bind="specification.name"></h4>
+      </a>
+    </div>
+
 </section>
