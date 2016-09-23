@@ -39,6 +39,11 @@ exports.read = function (req, res) {
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   project.isCurrentUserOwner = req.user && project.user && project.user._id.toString() === req.user._id.toString();
 
+  //Add active flag for user active project  
+  if (req.user.activeProject) {
+    project.active = (req.user.activeProject.toString() === project._id.toString());
+  }
+
   res.jsonp(project);
 };
 
@@ -47,7 +52,6 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var project = req.project;
-  var active = req.project.active;
   project = _.extend(project, req.body);
 
   project.save(function (err) {
@@ -57,7 +61,7 @@ exports.update = function (req, res) {
       });
     } else {
 
-      if (active) {
+      if (req.project.active) {
         var user = req.user;
 
         if (user) {
