@@ -60,7 +60,6 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-
       if (req.project.active) {
         var user = req.user;
 
@@ -105,13 +104,21 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
 
-  Project.find().sort('-created').populate('user', 'displayName').exec(function (err, projects) {
+  Project.find().lean().sort('-created').populate('user', 'displayName').exec(function (err, projects) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(projects);
+      res.jsonp(projects.map(function (p) {
+        if (req.user && req.user.activeProject) {
+          p.active = (req.user.activeProject.toString() === p._id.toString());
+        } else {
+          p.active = false;
+        }
+
+        return p;
+      }));
     }
   });
 };
