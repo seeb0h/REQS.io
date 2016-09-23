@@ -12,10 +12,6 @@ module.exports = function (app) {
     .get(projects.list)
     .post(projects.create);
 
-  app.route('/api/projects/active').all(projectsPolicy.isAllowed)
-    .get(projects.getActive)
-    .post(projects.setActive);
-
   app.route('/api/projects/:projectId').all(projectsPolicy.isAllowed)
     .get(projects.read)
     .put(projects.update)

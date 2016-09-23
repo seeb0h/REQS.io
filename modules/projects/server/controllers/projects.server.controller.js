@@ -6,17 +6,18 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Project = mongoose.model('Project'),
+  User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
  * Create a Project
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var project = new Project(req.body);
   project.user = req.user;
 
-  project.save(function(err) {
+  project.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +31,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Project
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var project = req.project ? req.project.toJSON() : {};
 
@@ -44,12 +45,12 @@ exports.read = function(req, res) {
 /**
  * Update a Project
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var project = req.project;
 
   project = _.extend(project, req.body);
 
-  project.save(function(err) {
+  project.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +64,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Project
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var project = req.project;
 
-  project.remove(function(err) {
+  project.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +81,9 @@ exports.delete = function(req, res) {
 /**
  * List of Projects
  */
-exports.list = function(req, res) {
-  Project.find().sort('-created').populate('user', 'displayName').exec(function(err, projects) {
+exports.list = function (req, res) {
+
+  Project.find().sort('-created').populate('user', 'displayName').exec(function (err, projects) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,9 +97,9 @@ exports.list = function(req, res) {
 /**
  * Get Active project
  */
-exports.getActive = function(req, res) {
+exports.getActive = function (req, res) {
   var projectID = req.user;
- 
+
   Project.find({ '__id': projectID }).sort('-created').populate('user', 'displayName').exec(function (err, projects) {
     if (err) {
       return res.status(400).send({
@@ -138,7 +140,7 @@ exports.setActive = function (req, res) {
 /**
  * Project middleware
  */
-exports.projectByID = function(req, res, next, id) {
+exports.projectByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
