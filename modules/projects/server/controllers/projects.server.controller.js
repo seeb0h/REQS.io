@@ -47,7 +47,7 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var project = req.project;
-
+  var active = req.project.active;
   project = _.extend(project, req.body);
 
   project.save(function (err) {
@@ -56,7 +56,25 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(project);
+
+      if (active) {
+        var user = req.user;
+
+        if (user) {
+          user.activeProject = project;
+          user.save(function (err) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              res.jsonp(project);
+            }
+          });
+        }
+      } else {
+        res.jsonp(project);
+      }
     }
   });
 };
@@ -93,49 +111,6 @@ exports.list = function (req, res) {
     }
   });
 };
-
-/**
- * Get Active project
- */
-exports.getActive = function (req, res) {
-  var projectID = req.user;
-
-  Project.find({ '__id': projectID }).sort('-created').populate('user', 'displayName').exec(function (err, projects) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(projects);
-    }
-  });
-};
-
-/**
- *set active project
- *  */
-exports.setActive = function (req, res) {
-  var project = req.body;
-  var user = req.user;
-
-  if (user) {
-    user.activeProject = project;
-    user.save(function (err) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.json(user);
-      }
-    });
-  } else {
-    res.status(400).send({
-      message: 'User is not signed in'
-    });
-  }
-};
-
 
 /**
  * Project middleware
