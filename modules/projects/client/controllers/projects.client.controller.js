@@ -17,6 +17,7 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.setActive = setActive;
 
     // Remove existing Project
     function remove() {
@@ -24,6 +25,22 @@
         vm.project.$remove($state.go('projects.list'));
       }
     }
+
+    // Set active state
+    function setActive(active) {
+        vm.project.active = active;
+        
+        vm.project.$update(successCallback, errorCallback);
+
+       function successCallback(res) {
+
+        }
+
+        function errorCallback(res) {
+            vm.error = res.data.message;
+        }
+    }
+
 
     // Save Project
     function save(isValid) {
