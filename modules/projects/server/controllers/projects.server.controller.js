@@ -103,7 +103,8 @@ exports.delete = function (req, res) {
  * List of Projects
  */
 exports.list = function (req, res) {
-
+  // add lean() to get the simple object (not mongoose model)
+  // if not -> the JSON.stringify delete all params not present in mongoose model 
   Project.find().lean().sort('-created').populate('user', 'displayName').exec(function (err, projects) {
     if (err) {
       return res.status(400).send({
@@ -116,7 +117,6 @@ exports.list = function (req, res) {
         } else {
           p.active = false;
         }
-
         return p;
       }));
     }
