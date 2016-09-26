@@ -6,17 +6,18 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Project = mongoose.model('Project'),
+  User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
  * Create a Project
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var project = new Project(req.body);
   project.user = req.user;
 
-  project.save(function(err) {
+  project.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +31,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Project
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var project = req.project ? req.project.toJSON() : {};
 
@@ -38,24 +39,45 @@ exports.read = function(req, res) {
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   project.isCurrentUserOwner = req.user && project.user && project.user._id.toString() === req.user._id.toString();
 
+  //Add active flag for user active project  
+  if (req.user.activeProject) {
+    project.active = (req.user.activeProject.toString() === project._id.toString());
+  }
+
   res.jsonp(project);
 };
 
 /**
  * Update a Project
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var project = req.project;
-
   project = _.extend(project, req.body);
 
-  project.save(function(err) {
+  project.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(project);
+      if (req.project.active) {
+        var user = req.user;
+
+        if (user) {
+          user.activeProject = project;
+          user.save(function (err) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              res.jsonp(project);
+            }
+          });
+        }
+      } else {
+        res.jsonp(project);
+      }
     }
   });
 };
@@ -63,10 +85,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Project
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var project = req.project;
 
-  project.remove(function(err) {
+  project.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,65 +102,31 @@ exports.delete = function(req, res) {
 /**
  * List of Projects
  */
-exports.list = function(req, res) {
-  Project.find().sort('-created').populate('user', 'displayName').exec(function(err, projects) {
+exports.list = function (req, res) {
+  // add lean() to get the simple object (not mongoose model)
+  // if not -> the JSON.stringify delete all params not present in mongoose model 
+  Project.find().lean().sort('-created').populate('user', 'displayName').exec(function (err, projects) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(projects);
+      res.jsonp(projects.map(function (p) {
+        if (req.user && req.user.activeProject) {
+          p.active = (req.user.activeProject.toString() === p._id.toString());
+        } else {
+          p.active = false;
+        }
+        return p;
+      }));
     }
   });
 };
-
-/**
- * Get Active project
- */
-exports.getActive = function(req, res) {
-  var projectID = req.user;
- 
-  Project.find({ '__id': projectID }).sort('-created').populate('user', 'displayName').exec(function (err, projects) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(projects);
-    }
-  });
-};
-
-/**
- *set active project
- *  */
-exports.setActive = function (req, res) {
-  var project = req.body;
-  var user = req.user;
-
-  if (user) {
-    user.activeProject = project;
-    user.save(function (err) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.json(user);
-      }
-    });
-  } else {
-    res.status(400).send({
-      message: 'User is not signed in'
-    });
-  }
-};
-
 
 /**
  * Project middleware
  */
-exports.projectByID = function(req, res, next, id) {
+exports.projectByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

@@ -98,7 +98,7 @@ var UserSchema = new Schema({
   resetPasswordExpires: {
     type: Date
   },
-  projectActive: {
+  activeProject: {
     type: Schema.ObjectId,
     ref: 'Project'
   }
