@@ -40,7 +40,7 @@ exports.read = function (req, res) {
   project.isCurrentUserOwner = req.user && project.user && project.user._id.toString() === req.user._id.toString();
 
   //Add active flag for user active project  
-  if (req.user.activeProject) {
+  if (req && req.user && req.user.activeProject) {
     project.active = (req.user.activeProject.toString() === project._id.toString());
   }
 

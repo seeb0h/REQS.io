@@ -6,6 +6,7 @@ var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Specification = mongoose.model('Specification'),
+  Project = mongoose.model('Project'),
   express = require(path.resolve('./config/lib/express'));
 
 /**
@@ -15,6 +16,7 @@ var app,
   agent,
   credentials,
   user,
+  project,
   specification;
 
 /**
@@ -50,11 +52,21 @@ describe('Specification CRUD tests', function () {
 
     // Save a user to the test db and create new Specification
     user.save(function () {
-      specification = {
-        name: 'Specification name'
-      };
+      project = new Project({
+        name: 'Project name',
+        user: user
+      });
 
-      done();
+      project.save(function () {
+        specification = {
+          name: 'Specification name',
+          docName: 'Doc name',
+          type: 'type',
+          version: 'version'
+        };
+
+        done();
+      });
     });
   });
 
@@ -405,7 +417,9 @@ describe('Specification CRUD tests', function () {
 
   afterEach(function (done) {
     User.remove().exec(function () {
-      Specification.remove().exec(done);
+      Project.remove().exec(function () {
+        Specification.remove().exec(done);
+      });
     });
   });
 });

@@ -8,7 +8,7 @@
 
   ProjectsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'projectResolve'];
 
-  function ProjectsController ($scope, $state, $window, Authentication, project) {
+  function ProjectsController($scope, $state, $window, Authentication, project) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -28,17 +28,17 @@
 
     // Set active state
     function setActive(active) {
-        vm.project.active = active;
-        
-        vm.project.$update(successCallback, errorCallback);
+      vm.project.active = active;
 
-       function successCallback(res) {
+      vm.project.$update(successCallback, errorCallback);
 
-        }
+      function successCallback(res) {
 
-        function errorCallback(res) {
-            vm.error = res.data.message;
-        }
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
     }
 
 
@@ -67,4 +67,4 @@
       }
     }
   }
-}());
+} ());
